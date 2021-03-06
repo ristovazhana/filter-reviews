@@ -11,9 +11,8 @@
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     $result = curl_exec($curl);
     curl_close($curl);
+
     
-    //var_dump(json_decode($result, true));
-    //echo $result;
     $resultDecoded = json_decode($result);
     $reviewsArray = $resultDecoded->reviews;
 

@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="row-3-md " style="text-align:center; margin-top:111px;">
-        <form action="results.php" >
+        <form action="results.php" method="post" >
             <div class="selectionDesign">
                 <label>Order by rating:</label>
                 </br>
@@ -27,8 +27,6 @@
                         <option value="5">5</option>
                         <option value="4">4</option>
                         <option value="3">3</option>
-                        <option value="2">2</option>
-                        <option value="1">1</option>
                     </select>
             </div>
 
@@ -44,7 +42,7 @@
             <div class="selectionDesign">
                 <label>Prioritize by text:</label>
                 </br>
-                    <select id="priority" name="PrioritizeByText">
+                    <select id="priority" name="prioritizeByText">
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                     </select>
