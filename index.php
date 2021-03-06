@@ -9,24 +9,21 @@
     <title>Document</title>
 </head>
 <body>
-
-
     <div class="row-3-md " style="text-align:center; margin-top:111px;">
-    
-        <form action="/action_page.php">
+        <form action="results.php" >
             <div class="selectionDesign">
                 <label>Order by rating:</label>
                 </br>
                     <select id="orderByRating" name="orderByRating">
-                        <option value="high">Highest First</option>
-                        <option value="low">Lowest First</option>
+                        <option value="highestFirst">Highest First</option>
+                        <option value="lowestFirst">Lowest First</option>
                     </select>
             </div>
             
             <div class="selectionDesign">
                 <label>Minimum rating:</label>
                 </br>
-                    <select id="minimumRating" name="orderByRating">
+                    <select id="minimumRating" name="orderByMinimumRating">
                         <option value="5">5</option>
                         <option value="4">4</option>
                         <option value="3">3</option>
@@ -39,25 +36,26 @@
                 <label>Order by date:</label>
                 </br>
                     <select id="orderByDate" name="orderByDate">
-                        <option value="newest">Newest First</option>
-                        <option value="oldest">OldestFirst</option>
+                        <option value="newestFirst">Newest First</option>
+                        <option value="oldestFirst">OldestFirst</option>
                     </select>
             </div>
 
             <div class="selectionDesign">
                 <label>Prioritize by text:</label>
                 </br>
-                    <select id="priority" name="Prioritize by text">
+                    <select id="priority" name="PrioritizeByText">
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
                     </select>
             </div>
-    
+
+            <div class="selectionDesign">
+                </br>
+                <input type="submit" name="submit" value="Submit" />
+            </div>
         </form>
     </div>
-    
-
-
 
 </body>
 </html>
