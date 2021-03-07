@@ -21,59 +21,76 @@
                 return $filteredResultsMinimumRating;
             } 
 
-            function orderByRating($orderByRating, $filteredResultsArray) { // RATING SORT
+            function orderByRating($orderByRating, $arrayToOrder) { // RATING SORT
                 if($orderByRating == 'highestFirst') {            
-                    usort($filteredResultsArray, function($first,$second){
+                    usort($arrayToOrder, function($first,$second){
                         return $first->rating < $second->rating;
                     });
                 } else {
-                    usort($filteredResultsArray,function($first,$second){
+                    usort($arrayToOrder,function($first,$second){
                         return $first->rating > $second->rating;
                     });
                 }
-                return $filteredResultsArray;
+
+                return $arrayToOrder;
             }
 
-            function orderByDate($orderByDate, $filteredResultsArray){ // DATE SORT
+            function orderByDate($orderByDate, $arrayToOrder){ // DATE SORT
                 if($orderByDate=='oldestFirst') {
-                    usort($filteredResultsArray, function($a, $b) {
+                    usort($arrayToOrder, function($a, $b) {
                         return strtotime($a->reviewCreatedOnDate) - strtotime($b->reviewCreatedOnDate);
                     });
                 } else {
-                    usort($filteredResultsArray, function($a, $b) {
+                    usort($arrayToOrder, function($a, $b) {
                         return strtotime($a->reviewCreatedOnDate) - strtotime($b->reviewCreatedOnDate);
                     });
-                    $filteredResultsArray = array_reverse($filteredResultsArray);
+                    $arrayToOrder = array_reverse($arrayToOrder);
                 }
-                return $filteredResultsArray;
+                return $arrayToOrder;
             }
 
-            function getByTextPrioritize($prioritizeByText, $filteredResultsArray) { // prioritize text
-                $filteredReviewsByText = [];
-
+            function getByTextPrioritize($prioritizeByText, $arrayToOrder, $filterReviewsWithText, $filterReviewsWithoutText) { // prioritize text
+                $arrayToOrder = [];
                 if($prioritizeByText == 'yes') {
-                    foreach($filteredResultsArray as $element ){
-                        if($element->reviewText != ''){
-                            array_push($filteredReviewsByText, $element);
-                        }
+                    $arrayToOrder = $filterReviewsWithText;
+                    foreach($filterReviewsWithoutText as $element ){
+                        array_push($arrayToOrder, $element);
                     }
                 } else {
-                    foreach($filteredResultsArray as $element ){
-                        if($element->reviewText == ''){
-                            array_push($filteredReviewsByText, $element);
-                        }
+                    $arrayToOrder = $filterReviewsWithoutText;
+                    foreach($filterReviewsWithText as $element ){
+                        array_push($arrayToOrder, $element);
                     }
                 }
 
-                return $filteredReviewsByText;
+                return $arrayToOrder;
             }
 
             $filteredResultsArray = [];
-            $filteredResultsArray = orderByMinimumRating($reviewsArray, $orderByMinimumRating);
-            $filteredResultsArray = orderByRating($orderByRating, $filteredResultsArray);
-            $filteredResultsArray = orderByDate($orderByDate, $filteredResultsArray);
+            $filteredResultsArray = orderByMinimumRating($reviewsArray, $orderByMinimumRating); // take only reviews with minimum rating $orderByMinimumRating
 
-            $filteredResultsArray = getByTextPrioritize($prioritizeByText, $filteredResultsArray);
+            // initialize new empty arrays for 'With Text Reviews' and 'Without Text Reviews'
+            $filterReviewsWithText = [];
+            $filterReviewsWithoutText = [];
+
+            foreach($filteredResultsArray as $element ){ // fill 'With Text Reviews array' and 'Without Text Reviews array'
+                if($element->reviewText == ''){
+                    array_push($filterReviewsWithoutText, $element);
+                } else {
+                    array_push($filterReviewsWithText, $element);
+                }
+            }
+
+            // order for array 'With Text Reviews' $filterReviewsWithText
+            $filterReviewsWithText = orderByRating($orderByRating, $filterReviewsWithText);
+            $filterReviewsWithText = orderByDate($orderByDate, $filterReviewsWithText);
+
+            // order for array 'Without Text Reviews' $filterReviewsWithText
+            $filterReviewsWithoutText = orderByRating($orderByRating, $filterReviewsWithoutText);
+            $filterReviewsWithoutText = orderByDate($orderByDate, $filterReviewsWithoutText);
+
+            // Fill $filteredResultsArray with 'With Text Reviews' and 'Without Text Reviews' depending on what is selected 'yes' or 'no'
+            $filteredResultsArray = getByTextPrioritize($prioritizeByText, $filteredResultsArray, $filterReviewsWithText, $filterReviewsWithoutText);
 
         ?>
         <table class="table-border">
@@ -86,7 +103,7 @@
             </thead>
             <tbody> 
                 <?php foreach ($filteredResultsArray as $review) : ?>
-                    <tr class="table-border">
+                    <tr>
                         <td> <?php echo $review->rating; ?> </td>
                         <td> <?php echo $review->reviewCreatedOnDate; ?> </td>
                         <td> <?php echo $review->reviewText; ?> </td>

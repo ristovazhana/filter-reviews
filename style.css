@@ -7,3 +7,70 @@
     border: 1px solid grey;
     padding: 10px;
 }
+.containerFilter {
+    align-items: center;
+    border: 3!important;
+    border-radius: 0;
+    background-color: white;
+    /* margin: auto;     */
+    margin-top:111px; 
+    width:400px;
+    padding-left: 11px;
+    margin-top: 111px!important;
+    border: 5px;
+    border-color: aliceblue;
+    border-style: outset;
+    padding-bottom: 22px;
+    }
+.title-filter{
+    color: darkslategrey;
+    font-size: 22px;
+    padding-top: 33px;
+  } 
+.selectionDropdown{
+    background: whitesmoke;
+    word-wrap: normal;
+    color: rgb(53, 53, 245);
+    font-size: 16px;
+    border: 1px;
+    border: whitesmoke;
+    border-style: groove;
+    font-weight: 500;
+    border-width: 1px;
+}
+.selectionDropdown:hover{
+    background: cornflowerblue;
+    color: white;
+    font-size: 17px;
+    border: bisque;
+    border-style: groove;
+    font-weight: 500;
+    border-width: 2px;
+}
+label{
+    font-weight: 600;
+}
+.btnFilter{
+    background-color:cornflowerblue;
+    color: white;
+    border-style: double;
+    size: 16px;
+    border-width: 1px;
+    border-color: antiquewhite;
+    border-radius: 5px;
+    font-weight: 400;
+    width: 100px;
+    padding: 5px;
+}
+.btnFilter:hover{
+    background-color:cornflowerblue;
+    color: black;
+    border-style: double;
+    size: 16px;
+    border-width: 1px;
+    border-color: rgb(56, 51, 44);
+    border-radius: 4px;
+    font-weight: 500;
+    width: 100px;
+    padding: 5px;
+}
