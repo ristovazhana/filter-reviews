@@ -54,7 +54,7 @@
 
             <div class="selectionDesign">
                 </br>
-                <input type="submit" name="Filter" value="Submit"  class="btnFilter"/>
+                <input type="submit" name="Filter" value="Filter"  class="btnFilter"/>
             </div>
         </form>
     </div>
